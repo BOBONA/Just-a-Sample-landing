@@ -1,11 +1,231 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import pluginFull from "../assets/plugin_highlight.mp4";
+import pluginLoading from "../assets/plugin_loading.png";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { Image } from "astro:assets";
+import "@fontsource/bungee-shade";
+import "@fontsource/inria-sans";
+
+const boutiqueLink = "";
+const kvrLink = "";
+const itchLink = "";
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Just a Sample" headers={{ highlights: "Highlights", features: "Features", downloads: "Download" }}>
+  <div class="mx-auto px-0 lg:px-8 xl:px-16">
+    <div class="px-8 py-10">
+      <h1 id="title" class="text-center text-8xl text-dark font-logo">Just a Sample</h1>
+      <p class="py-3 text-center text-4xl text-dark">
+        Your favorite sampler <span class="text-highlight">shouldn't</span> be complicated.
+      </p>
+
+      <hr class="mx-auto mt-4 w-1/4 border-2 md-2 border-dark/20" />
+      <div class="relative py-6 h-[500vh]">
+        <div id="highlights" class="absolute top-0 flex h-full w-full flex-col justify-between">
+          <div id="powerful" class="h-1" />
+          <div id="navigate" class="h-1" />
+          <div id="beautiful" class="h-1" />
+          <div id="free" class="h-1" />
+          <div class="h-1" />
+        </div>
+
+        <div class="sticky flex flex-col space-x-5 md:flex-row">
+          <div class="flex-[5]">
+            <h2 class="text-6xl">Highlights</h2>
+            <ul class="list-inside list-disc py-6 text-4xl space-y-2">
+              <li><a href="#highlights" class="observer-powerful hover:underline"><span
+                class="text-highlight">Powerful</span> playback
+                controls</a></li>
+              <li><a href="#navigate" class="observer-navigate hover:underline"><span
+                class="text-highlight">Navigate</span> effortlessly</a>
+              </li>
+              <li><a href="#beautiful" class="observer-beautiful hover:underline"><span
+                class="text-highlight">Beautiful</span> UX</a></li>
+              <li><a href="#downloads" class="observer-free hover:underline"><span class="text-highlight">Free </span>and
+                open-source</a>
+              </li>
+            </ul>
+          </div>
+          <div class="flex-[6]">
+            <div class="py-4">
+              <div class="w-auto border-2 border-dashed shadow-xl border-dark">
+                <Image id="videoPlaceholder" src={pluginLoading} alt="Plugin loading" />
+                <video id="video" muted playsinline class="hidden">
+                  <source src={pluginFull} type="video/mp4" />
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="mx-auto mt-4 w-1/4 border-2 md-2 border-dark/20" />
+      <div class="py-6">
+        <h2 id="features" class="text-center font-sans text-6xl">Features</h2>
+        <ul class="mx-auto grid w-fit list-inside list-disc grid-cols-1 gap-4 py-4 text-2xl md:grid-cols-2 xl:px-16">
+          <h3 class="col-span-full text-center text-3xl font-bold">Core</h3>
+          <li><span class="text-highlight">Sample accurate</span> bounds</li>
+          <li>Integrated <a target="_blank" rel="noopener noreferrer"
+                            href="https://github.com/kupix/bungee"><span
+            class="text-highlight">time stretcher</span></a>
+            <span class="text-lg">(0.01x - 5.0x)</span>
+          </li>
+          <li><span class="text-highlight">Modern</span> navigation</li>
+          <li><span class="text-highlight">Optimized</span> for large samples</li>
+          <li><span class="text-highlight">Routable FX chain</span> included</li>
+          <li>Cross-fade <span class="text-highlight">looping</span></li>
+          <li>Pitch wheel support</li>
+
+          <h3 class="col-span-full text-center text-3xl font-bold">Extras</h3>
+          <li><span class="text-highlight">LOFI</span> playback</li>
+          <li><span class="text-highlight">Record</span> directly to plugin</li>
+          <li>Store samples in plugin state</li>
+          <li>Auto-detect tuning <span class="text-lg">(experimental)</span></li>
+        </ul>
+
+        <hr class="mx-auto mt-4 w-1/4 border-2 md-2 border-dark/20" />
+        <div class="py-6">
+          <h2 id="downloads" class="text-center font-sans text-6xl">Download</h2>
+          <p class="py-4 text-center text-4xl">
+            Available for Windows and macOS, in VST, AU, and AAX.
+          </p>
+          <div class="flex flex-col align-middle w-2/3 lg:w-1/2 mx-auto mt-4">
+            {boutiqueLink && <a href={boutiqueLink} target="_blank" rel="noopener noreferrer">
+              <button
+                class="flex items-center justify-center my-1 w-full rounded-xl border-4 px-4 py-1.5 border-boutique text-boutique hover:bg-boutique hover:text-backdrop">
+                <span>Available on Plugin Boutique</span>
+                <Icon name="boutique" class="ml-2 inline text-lg" />
+              </button>
+            </a>}
+            {kvrLink && <a href={kvrLink} target="_blank" rel="noopener noreferrer">
+              <button
+                class="flex items-center justify-center my-1 w-full rounded-xl border-4 px-4 py-1.5 border-kvr text-kvr hover:bg-kvr hover:text-backdrop">
+                <span>Available on KVR Audio</span>
+                <Icon name="kvr" class="ml-2 inline text-sm" />
+              </button>
+            </a>}
+            {itchLink && <a href={itchLink} target="_blank" rel="noopener noreferrer">
+              <button
+                class="flex items-center justify-center my-1 w-full rounded-xl border-4 px-4 py-1.5 border-itchio text-itchio hover:bg-itchio hover:text-backdrop">
+                <span>Available on itch.io</span>
+                <Icon name="itchio" class="ml-2 inline text-lg" />
+              </button>
+            </a>}
+            <div class="my-1">
+              <a href="https://github.com/BOBONA/Just-a-Sample/releases" target="_blank" rel="noopener noreferrer">
+                <button
+                  class="flex items-center justify-center w-full rounded-xl border-4 px-4 py-1.5 border-github hover:bg-github text-github hover:text-backdrop">
+                  <span>Download from GitHub Releases</span>
+                  <Icon name="mdi:github" class="ml-2 inline text-2xl" />
+                </button>
+              </a>
+              <p class="text-center hover:underline"><a href="https://github.com/BOBONA/Just-a-Sample/" target="_blank"
+                                                        rel="noopener noreferrer">
+                Or view source directly</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Use placeholder image until video is loaded
+
+    const video = document.getElementById("video") as HTMLVideoElement;
+    const placeholder = document.getElementById("videoPlaceholder");
+
+    function showVideo() {
+      video?.classList.remove("hidden");
+      placeholder?.classList.add("hidden");
+    }
+
+    video?.addEventListener("loadeddata", showVideo);
+
+    if (video?.readyState >= 2) {
+      showVideo();
+    }
+  </script>
+
+  <script>
+    // Keep sticky content centered
+
+    function setStickyImage() {
+      const image = document.querySelector(".sticky");
+
+      if (!image) {
+        return;
+      }
+
+      const imageHeight = image.clientHeight;
+      const windowHeight = window.innerHeight;
+      const top = (windowHeight - imageHeight) / 2;
+      image.setAttribute("style", `top: ${top}px`);
+    }
+
+    window.addEventListener("load", setStickyImage);
+    window.addEventListener("resize", setStickyImage);
+  </script>
+
+  <script>
+    // Play video as scroll progresses
+
+    const video = document.getElementById("video") as HTMLVideoElement;
+
+    const startEl = document.getElementById("powerful");
+    const endEl = document.getElementById("free");
+
+    // Optimized scroll handler with debouncing
+    let lastScrollTime = 0;
+    const SCROLL_THROTTLE = 1000 / 60; // 60fps target
+
+    function updateVideoAndLabels() {
+      const now = performance.now();
+      if (now - lastScrollTime < SCROLL_THROTTLE) return;
+      lastScrollTime = now;
+
+      if (!video || !startEl || !endEl) return;
+
+      const playbackStartPos = startEl.getBoundingClientRect().top;
+      const playbackEndPos = endEl.getBoundingClientRect().top;
+      const progress = -playbackStartPos / (playbackEndPos - playbackStartPos);
+
+      requestAnimationFrame(() => {
+        if (progress >= 0 && progress <= 1) {
+          video.currentTime = 1 + (video.duration - 1) * progress;
+        } else if (progress < 0) {
+          video.currentTime = 1;
+        } else if (progress > 1) {
+          video.currentTime = video.duration;
+        }
+      });
+
+      // Update section highlights
+      const sections = ["powerful", "navigate", "beautiful", "free"];
+      const currentSection = sections.toReversed().find(section => {
+        const el = document.getElementById(section) as HTMLElement;
+        return el.getBoundingClientRect().top < 0;
+      });
+
+      sections.forEach(section => {
+        const el = document.querySelector(`.observer-${section}`);
+        if (el) {
+          el.classList.toggle("font-black", section === currentSection);
+        }
+      });
+    }
+
+    // Event listeners
+    window.addEventListener("scroll", updateVideoAndLabels, { passive: true });
+
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        if (video.currentTime === 0) {
+          video.currentTime = 1;
+        }
+      }, 1000);
+    });
+  </script>
 </Layout>
