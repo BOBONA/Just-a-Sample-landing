@@ -1,18 +1,46 @@
 ---
 import "@fontsource/inria-sans";
 import { Icon } from "astro-icon/components";
+import { SEO } from "astro-seo";
 
 const { title, headers } = Astro.props;
 const year = new Date().getFullYear();
+
+const description = `Your favorite audio sampler shouldn't be complicated. Just a Sample features powerful playback controls, effortless navigation, and a beautiful UX.
+    And it's free and open-source. Features include sample accurate bounds, an integrated time stretcher
+    with support for extreme ratios, modern navigation controls, optimizations for large samples,
+    a routable FX chain with reverb, distortion, chorus, and EQ, cross-fade looping, and full pitch wheel support.
+    Additional features include LOFI playback, recording directly to plugin, storing samples in plugin state, and auto-detecting tuning.`;
 ---
 
 <html lang="en" class="scroll-smooth font-sans">
 <head>
-  <meta charset="UTF-8" />
-  <title>{title}</title>
-  <link rel="icon" type="image/svg" href="/favicon.svg" />
+  <SEO
+    title={title}
+    description={description}
+    openGraph={{
+      basic: {
+        title: "Just a Sample | Modern Audio Sampler Plugin | Windows/Mac/VST/AU/AAX | Binyamin Friedman",
+        type: "website",
+        image: "/just-a-sample/plugin_full.png"
+      },
+      optional: {
+        description: "Just a Sample, a modern audio sampler plugin."
+      },
+      image: {
+        alt: "A full view of Just a Sample's plugin interface.",
+        type: "image/png"
+      }
+    }}
+
+    extend={{
+      link: [
+        { rel: "icon", type: "image/svg", href: "/just-a-sample/favicon.svg" }
+      ]
+    }}
+  />
 </head>
-<body class="bg-backdrop">
+<body class="bg-backdrop text-dark">
 
 <div id="progressBar" class="fixed top-0 left-0 h-1 bg-highlight w-0 z-50"></div>
 
@@ -33,7 +61,7 @@ const year = new Date().getFullYear();
     <ul class="space-y-2">
       {headers && Object.entries(headers).map(([id, text]) => (
         <li class="border-none"><a href={`#${id}`}
-                                   class="text-dark border-none hover:underline nav-text">{text}</a></li>
+                                   class="border-none hover:underline nav-text">{text}</a></li>
       ))}
     </ul>
   </nav>
@@ -70,17 +98,22 @@ const year = new Date().getFullYear();
 </div>
 
 <footer class="bg-mint">
-  <div class="flex justify-center align-middle px-0 lg:px-8 py-4 space-x-3">
-    <p class="text-dark text-center">© {year}. Just a Sample.</p>
-    <p class="text-dark text-center">By Binyamin Friedman.</p>
-    <div class="flex space-x-1">
-      <a target="_blank" rel="noopener noreferrer" href="https://github.com/bobona" class="my-auto">
-        <Icon name="mdi:github" class="text-dark text-xl" />
-      </a>
-      <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/binyaminf" class="my-auto">
-        <Icon name="mdi:linkedin" class="text-dark text-xl" />
-      </a>
+  <div class="flex justify-center align-middle px-0 lg:px-8 py-4 space-x-6">
+    <p class="text-center">&copy; {year}  Just a Sample</p>
+    <div class="flex space-x-2">
+      <p class="text-center">By Binyamin Friedman</p>
+      <div class="flex space-x-1">
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bobona" class="my-auto">
+          <Icon name="mdi:github" class="text-xl" />
+        </a>
+        <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/binyaminf" class="my-auto">
+          <Icon name="mdi:linkedin" class="text-xl" />
+        </a>
+      </div>
     </div>
+    <p class="text-center"><a target="_blank" rel="noopener noreferrer"
+                              href="https://github.com/BOBONA/Just-a-Sample-landing" class="my-auto hover:underline">View
+      site source</a></p>
   </div>
 </footer>
 

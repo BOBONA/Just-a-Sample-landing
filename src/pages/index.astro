@@ -13,7 +13,8 @@ const kvrLink = "";
 const itchLink = "";
 ---
 
-<Layout title="Just a Sample" headers={{ highlights: "Highlights", features: "Features", downloads: "Download" }}>
+<Layout title="Just a Sample | Modern Audio Sampler"
+        headers={{ highlights: "Highlights", features: "Features", downloads: "Download" }}>
   <div class="mx-auto px-0 lg:px-8 xl:px-16">
     <div class="px-8 py-10">
       <h1 id="title" class="text-center text-8xl text-dark font-logo">Just a Sample</h1>
@@ -31,7 +32,7 @@ const itchLink = "";
           <div class="h-1" />
         </div>
 
-        <div class="sticky flex flex-col space-x-5 md:flex-row">
+        <div class="sticky flex flex-col space-x-5 md:flex-row portrait:flex-col">
           <div class="flex-[5]">
             <h2 class="text-6xl">Highlights</h2>
             <ul class="list-inside list-disc py-6 text-4xl space-y-2">
@@ -50,7 +51,7 @@ const itchLink = "";
           </div>
           <div class="flex-[6]">
             <div class="py-4">
-              <div class="w-auto border-2 border-dashed shadow-xl border-dark">
+              <div class="w-fit border-2 border-dashed shadow-xl border-dark">
                 <Image id="videoPlaceholder" src={pluginLoading} alt="Plugin loading" />
                 <video id="video" muted playsinline class="hidden">
                   <source src={pluginFull} type="video/mp4" />
@@ -72,7 +73,7 @@ const itchLink = "";
             class="text-highlight">time stretcher</span></a>
             <span class="text-lg">(0.01x - 5.0x)</span>
           </li>
-          <li><span class="text-highlight">Modern</span> navigation</li>
+          <li><span class="text-highlight">Modern</span> navigation controls</li>
           <li><span class="text-highlight">Optimized</span> for large samples</li>
           <li><span class="text-highlight">Routable FX chain</span> included</li>
           <li>Cross-fade <span class="text-highlight">looping</span></li>
@@ -132,24 +133,6 @@ const itchLink = "";
   </div>
 
   <script>
-    // Use placeholder image until video is loaded
-
-    const video = document.getElementById("video") as HTMLVideoElement;
-    const placeholder = document.getElementById("videoPlaceholder");
-
-    function showVideo() {
-      video?.classList.remove("hidden");
-      placeholder?.classList.add("hidden");
-    }
-
-    video?.addEventListener("loadeddata", showVideo);
-
-    if (video?.readyState >= 2) {
-      showVideo();
-    }
-  </script>
-
-  <script>
     // Keep sticky content centered
 
     function setStickyImage() {
@@ -170,9 +153,23 @@ const itchLink = "";
   </script>
 
   <script>
-    // Play video as scroll progresses
+    // Use placeholder image until video is loaded
 
     const video = document.getElementById("video") as HTMLVideoElement;
+    const placeholder = document.getElementById("videoPlaceholder");
+
+    function showVideo() {
+      video?.classList.remove("hidden");
+      placeholder?.classList.add("hidden");
+    }
+
+    video?.addEventListener("loadeddata", showVideo);
+
+    if (video?.readyState >= 2) {
+      showVideo();
+    }
+
+    // Play video as scroll progresses
 
     const startEl = document.getElementById("powerful");
     const endEl = document.getElementById("free");
@@ -182,6 +179,10 @@ const itchLink = "";
     const SCROLL_THROTTLE = 1000 / 60; // 60fps target
 
     function updateVideoAndLabels() {
+      if (video?.readyState >= 2) {
+        showVideo();
+      }
+
       const now = performance.now();
       if (now - lastScrollTime < SCROLL_THROTTLE) return;
       lastScrollTime = now;
@@ -192,15 +193,18 @@ const itchLink = "";
       const playbackEndPos = endEl.getBoundingClientRect().top;
       const progress = -playbackStartPos / (playbackEndPos - playbackStartPos);
 
-      requestAnimationFrame(() => {
-        if (progress >= 0 && progress <= 1) {
-          video.currentTime = 1 + (video.duration - 1) * progress;
-        } else if (progress < 0) {
-          video.currentTime = 1;
-        } else if (progress > 1) {
-          video.currentTime = video.duration;
-        }
-      });
+      // Update video playback if video element is in view
+      if (video.offsetParent !== null) {
+        requestAnimationFrame(() => {
+          if (progress >= 0 && progress <= 1) {
+            video.currentTime = 1 + (video.duration - 1) * progress;
+          } else if (progress < 0) {
+            video.currentTime = 1;
+          } else if (progress > 1) {
+            video.currentTime = video.duration;
+          }
+        });
+      }
 
       // Update section highlights
       const sections = ["powerful", "navigate", "beautiful", "free"];
