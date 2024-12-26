@@ -155,11 +155,11 @@ const itchLink = "";
     window.addEventListener("resize", setStickyImage);
   </script>
 
-  <script is:inline define:vars={{ base: Astro.base }}>
+  <script>
     // Use placeholder image until video is loaded
 
-    const video = document.getElementById("video");
-    const placeholder = document.getElementById("videoPlaceholder");
+    const video = document.getElementById("video") as HTMLVideoElement;
+    const placeholder = document.getElementById("videoPlaceholder") as HTMLImageElement;
 
     function showVideo() {
       video.classList.remove("hidden");
@@ -185,7 +185,7 @@ const itchLink = "";
       if (video.readyState >= 2) {
         showVideo();
       } else {
-        placeholder.src = `${base}/plugin_full.png`;
+        placeholder.src = "/just-a-sample/plugin_full.png";
       }
 
       const now = performance.now();
@@ -214,7 +214,7 @@ const itchLink = "";
       // Update section highlights
       const sections = ["powerful", "navigate", "beautiful", "free"];
       const currentSection = sections.toReversed().find(section => {
-        const el = document.getElementById(section);
+        const el = document.getElementById(section) as HTMLElement;
         return el.getBoundingClientRect().top < 0;
       });
 
