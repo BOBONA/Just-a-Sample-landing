@@ -1,4 +1,3 @@
-<h1 align="center">Landing Page</h1>
 <img src="public/landing_page.png" alt="Landing Page" width="1789" style="margin: 0 auto">
 
 ## Description
