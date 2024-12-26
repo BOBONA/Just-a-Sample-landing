@@ -155,11 +155,11 @@ const itchLink = "";
     window.addEventListener("resize", setStickyImage);
   </script>
 
-  <script define:vars={{ base: Astro.base }}>
+  <script is:inline define:vars={{ base: Astro.base }}>
     // Use placeholder image until video is loaded
 
-    const video = document.getElementById("video") as HTMLVideoElement;
-    const placeholder = document.getElementById("videoPlaceholder") as HTMLImageElement;
+    const video = document.getElementById("video");
+    const placeholder = document.getElementById("videoPlaceholder");
 
     function showVideo() {
       video.classList.remove("hidden");
@@ -214,7 +214,7 @@ const itchLink = "";
       // Update section highlights
       const sections = ["powerful", "navigate", "beautiful", "free"];
       const currentSection = sections.toReversed().find(section => {
-        const el = document.getElementById(section) as HTMLElement;
+        const el = document.getElementById(section);
         return el.getBoundingClientRect().top < 0;
       });
 
