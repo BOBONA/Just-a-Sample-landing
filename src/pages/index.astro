@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 import pluginFull from "../assets/plugin_highlight.mp4";
+import pluginFullWebm from "../assets/plugin_highlight.webm";
 import pluginLoading from "../assets/plugin_loading.png";
 
 import { Image } from "astro:assets";
@@ -48,6 +49,7 @@ const itchLink = "";
                 open-source</a>
               </li>
             </ul>
+            <a href="#downloads" class="underline text-xl"><p>Skip to download</p></a>
           </div>
           <div class="flex-[6]">
             <div class="py-4">
@@ -55,6 +57,7 @@ const itchLink = "";
                 <Image id="videoPlaceholder" src={pluginLoading} alt="Plugin loading" />
                 <video id="video" muted playsinline class="hidden">
                   <source src={pluginFull} type="video/mp4" />
+                  <source src={pluginFullWebm} type="video/webm" />
                 </video>
               </div>
             </div>
@@ -90,7 +93,7 @@ const itchLink = "";
         <div class="py-6">
           <h2 id="downloads" class="text-center font-sans text-6xl">Download</h2>
           <p class="py-4 text-center text-4xl">
-            Available for Windows and macOS, in VST, AU, and AAX.
+            Available for Windows and macOS, in VST3 and AU.
           </p>
           <div class="flex flex-col align-middle w-2/3 lg:w-1/2 mx-auto mt-4">
             {boutiqueLink && <a href={boutiqueLink} target="_blank" rel="noopener noreferrer">
@@ -152,15 +155,15 @@ const itchLink = "";
     window.addEventListener("resize", setStickyImage);
   </script>
 
-  <script>
+  <script define:vars={{ base: Astro.base }}>
     // Use placeholder image until video is loaded
 
     const video = document.getElementById("video") as HTMLVideoElement;
-    const placeholder = document.getElementById("videoPlaceholder");
+    const placeholder = document.getElementById("videoPlaceholder") as HTMLImageElement;
 
     function showVideo() {
-      video?.classList.remove("hidden");
-      placeholder?.classList.add("hidden");
+      video.classList.remove("hidden");
+      placeholder.classList.add("hidden");
     }
 
     video?.addEventListener("loadeddata", showVideo);
@@ -179,8 +182,10 @@ const itchLink = "";
     const SCROLL_THROTTLE = 1000 / 60; // 60fps target
 
     function updateVideoAndLabels() {
-      if (video?.readyState >= 2) {
+      if (video.readyState >= 2) {
         showVideo();
+      } else {
+        placeholder.src = `${base}/plugin_full.png`;
       }
 
       const now = performance.now();
