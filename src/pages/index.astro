@@ -94,7 +94,7 @@ const itchLink = "https://binyaminf.itch.io/just-a-sample";
         <div class="py-6">
           <h2 id="downloads" class="text-center font-sans text-6xl">Download</h2>
           <p class="py-4 text-center text-4xl">
-            Available for Windows and Mac in VST3/AU.
+            Available for Windows, Mac, and Linux in VST3/AU.
           </p>
           <div class="flex flex-col align-middle w-2/3 lg:w-1/2 mx-auto mt-4">
             {boutiqueLink && <a href={boutiqueLink} target="_blank" rel="noopener noreferrer">
@@ -104,18 +104,18 @@ const itchLink = "https://binyaminf.itch.io/just-a-sample";
                 <Icon name="boutique" class="ml-2 inline text-lg" />
               </button>
             </a>}
-            {kvrLink && <a href={kvrLink} target="_blank" rel="noopener noreferrer">
-              <button
-                class="flex items-center justify-center my-1 w-full rounded-xl border-4 px-4 py-1.5 border-kvr text-kvr hover:bg-kvr hover:text-backdrop">
-                <span>Available on KVR Audio</span>
-                <Icon name="kvr" class="ml-2 inline text-sm" />
-              </button>
-            </a>}
             {itchLink && <a href={itchLink} target="_blank" rel="noopener noreferrer">
               <button
                 class="flex items-center justify-center my-1 w-full rounded-xl border-4 px-4 py-1.5 border-itchio text-itchio hover:bg-itchio hover:text-backdrop">
                 <span>Available on itch.io</span>
                 <Icon name="itchio" class="ml-2 inline text-lg" />
+              </button>
+            </a>}
+            {kvrLink && <a href={kvrLink} target="_blank" rel="noopener noreferrer">
+              <button
+                class="flex items-center justify-center my-1 w-full rounded-xl border-4 px-4 py-1.5 border-kvr text-kvr hover:bg-kvr hover:text-backdrop">
+                <span>Available on KVR Audio</span>
+                <Icon name="kvr" class="ml-2 inline text-sm" />
               </button>
             </a>}
             <div class="my-1">
